@@ -1,7 +1,3 @@
-@import "normalize";
-@import "fonts";
-@import "variables";
-
 *,
 *::before,
 *::after {
@@ -9,16 +5,17 @@
 }
 
 html {
-  font-size: 14px;
   box-sizing: border-box;
+  line-height: 1em;
   font-family: "Geometria", Arial, Helvetica, sans-serif;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--gray-color);
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: $bg-main-color;
-  overflow-x: hidden;
+  background-color: var(--black-color);
 }
 
 #app {
@@ -44,8 +41,8 @@ ul {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
 img {

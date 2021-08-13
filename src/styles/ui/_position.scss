@@ -1,0 +1,110 @@
+@import "src/styles/variables/media";
+
+.p-rel {
+  position: relative;
+}
+.p-abs {
+  position: absolute;
+}
+.p-sticky {
+  position: sticky;
+}
+.p-fixed {
+  position: fixed;
+}
+.c-pointer {
+  cursor: pointer;
+}
+.rounded {
+  border-radius: 10px;
+}
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  height: 100%;
+}
+.b-none {
+  border: none;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.d-iblock {
+  display: inline-block;
+}
+.d-block {
+  display: block;
+}
+.d-none {
+  display: none;
+}
+.d-inline {
+  display: inline;
+}
+.outline-none {
+  outline: none;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+@media screen and (min-width: $mb) {
+  .d-mb-iblock {
+    display: inline-block;
+  }
+  .d-mb-block {
+    display: block;
+  }
+  .d-mb-none {
+    display: none;
+  }
+  .d-mb-inline {
+    display: inline;
+  }
+  .text-mb-left {
+    text-align: left;
+  }
+  .text-mb-center {
+    text-align: center;
+  }
+  .text-mb-right {
+    text-align: right;
+  }
+}
+
+@media screen and (min-width: $lg) {
+  .d-lg-iblock {
+    display: inline-block;
+  }
+  .d-lg-block {
+    display: block;
+  }
+  .d-lg-none {
+    display: none;
+  }
+  .d-lg-inline {
+    display: inline;
+  }
+  .text-lg-left {
+    text-align: left;
+  }
+  .text-lg-center {
+    text-align: center;
+  }
+  .text-lg-right {
+    text-align: right;
+  }
+}
+
+@for $i from 1 through 10 {
+  .z-index-#{$i} {
+    z-index: #{$i};
+  }
+}

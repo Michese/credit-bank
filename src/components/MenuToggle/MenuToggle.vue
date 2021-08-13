@@ -1,38 +1,85 @@
 <template>
   <button
     type="button"
-    class="menu-toggle"
+    class="menu-toggle d-flex align-center p-rel p-0 b-none transparent peru-color c-pointer"
     :class="activeClass"
-    @click="$emit('openMenu')"
   >
     <div class="line"></div>
   </button>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 
 @Options({
-  props: {
-    isActive: Boolean
-  },
-  emits: ["openMenu"],
-  computed: {
-    activeClass() {
-      return {
-        "is-active": this.isActive
-      }
-    }
-  }
+  name: 'MenuToggle',
 })
-export default class MenuToggle extends Vue {}
+export default class MenuToggle extends Vue {
+  @Prop({
+    require: true,
+  })
+  private isActive!: boolean;
+
+  get activeClass(): { 'is-active': boolean } {
+    return {
+      'is-active': this.isActive,
+    };
+  }
+}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
+.menu-toggle {
+  --animation-duration: 0.5s;
+  --animation-start-duration: 0.3s;
 
-$animation-duration: .5s;
-$animation-start-duration: 0.2s;
+  width: 1em;
+  height: 0.76em;
+  font-size: 1.785em;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  &::before {
+    border-top: 0.15em solid currentColor;
+    animation: toggle-deactivating-before var(--animation-duration) ease-in-out;
+  }
+
+  &::after {
+    border-bottom: 0.15em solid currentColor;
+    animation: toggle-deactivating-after var(--animation-duration) ease-in-out;
+  }
+
+  .line {
+    width: 0.8em;
+    border-bottom: 0.15em solid currentColor;
+    transition: width var(--animation-start-duration) calc(var(--animation-duration) - var(--animation-start-duration))
+      ease-in-out;
+  }
+
+  &.is-active {
+    .line {
+      width: 0;
+    }
+
+    &::before {
+      animation: toggle-activating-before var(--animation-duration) ease-in-out forwards;
+    }
+
+    &::after {
+      animation: toggle-activating-after var(--animation-duration) ease-in-out forwards;
+    }
+  }
+}
 
 @keyframes toggle-activating-before {
   0% {
@@ -92,59 +139,5 @@ $animation-start-duration: 0.2s;
   100% {
     transform: translate(0, 0) rotate(0);
   }
-}
-
-.menu-toggle {
-  display: flex;
-  align-items: center;
-  position: relative;
-  border: none;
-  padding: 0;
-  width: 1em;
-  height: 0.76em;
-  font-size: 1.785em;
-  background-color: transparent;
-  color: $third-color;
-  cursor: pointer;
-}
-
-.menu-toggle::before,
-.menu-toggle::after {
-  content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-}
-.menu-toggle::before {
-  border-top: 0.15em solid currentColor;
-  animation: toggle-deactivating-before $animation-duration ease-in-out;
-}
-
-.menu-toggle::after {
-  border-bottom: 0.15em solid currentColor;
-  animation: toggle-deactivating-after $animation-duration ease-in-out;
-}
-
-.line {
-  width: 0.8em;
-  border-bottom: 0.15em solid currentColor;
-  transition: width $animation-start-duration $animation-duration -
-    $animation-start-duration ease-in-out;
-}
-
-.menu-toggle.is-active::before {
-  animation: toggle-activating-before $animation-duration ease-in-out forwards;
-}
-
-.menu-toggle.is-active::after {
-  animation: toggle-activating-after $animation-duration ease-in-out forwards;
-}
-
-.menu-toggle.is-active .line {
-  width: 0;
-  transition: width $animation-start-duration ease-in-out;
 }
 </style>

@@ -1,24 +1,23 @@
 <template>
   <button
     type="button"
-    class="dropdown"
+    class="dropdown p-rel w-100 b-transparent rounded outline-none text-left c-pointer"
     :class="dropdownClasses"
     @click="toggleList"
   >
-    <span class="dropdown__label"><slot></slot></span>
-    <span class="dropdown__value">
-      {{ dropdown.getSelectedOption().text }}
+    <span class="dropdown__label p-abs crephusa gray-color"><slot></slot></span>
+    <span class="input-text white-color">
+      {{ dropdown.options[dropdown.selectedIndex].text }}
     </span>
 
-    <transition name="dropdown-list">
-      <div v-show="dropdown.isOpen" class="dropdown__inner">
-        <transition-group class="dropdown__list" name="dropdown-items" tag="ul">
-          <li v-for="option in dropdown.getOptions()" :key="option.index">
+    <transition name="dropdown-list w-100">
+      <div v-show="isOpen" class="dropdown__inner p-abs w-100 rounded">
+        <transition-group class="dropdown__list overflow-x-hidden" name="dropdown-items" tag="ul">
+          <li v-for="option in getOptions" :key="option.index">
             <button
-              class="dropdown__btn"
+              class="dropdown__btn w-100 transparent b-none rounded text-left input-text white-color c-pointer"
               type="button"
-              :data-value="option.index"
-              @click.stop="$emit('change', +$event.target.dataset.value)"
+              @click.stop="updatedDropdown(option.index)"
             >
               {{ option.text }}
             </button>
@@ -30,156 +29,132 @@
 </template>
 
 <script lang="ts">
-import DropdownClass from "@/components/Dropdown/interface/Dropdown"
-import { Options, Vue } from "vue-class-component"
+import { Options, Vue } from 'vue-class-component';
+import { Prop, Emit } from 'vue-property-decorator';
+import { TDropdown, TOption } from '@/types/Dropdown';
 
 @Options({
-  props: {
-    dropdown: DropdownClass
-  },
-  emits: ["change"],
-  computed: {
-    dropdownClasses() {
-      return {
-        "is-opened": this.dropdown.isOpen
-      }
-    }
-  },
-  methods: {
-    toggleList() {
-      this.dropdown.toggle()
-    }
-  }
+  name: 'Dropdown',
 })
-export default class Dropdown extends Vue {}
+export default class Dropdown extends Vue {
+  @Prop({
+    require: true,
+  })
+  private dropdown!: TDropdown;
+  isOpen = false;
+  @Emit() updatedDropdown(index: number): number {
+    return index;
+  }
+  get dropdownClasses(): { 'is-opened': boolean } {
+    return {
+      'is-opened': this.isOpen,
+    };
+  }
+  get getOptions(): TOption[] {
+    return this.dropdown.options.filter((option: TOption) => {
+      return option.index !== this.dropdown.selectedIndex;
+    });
+  }
+  toggleList(): void {
+    this.isOpen = !this.isOpen;
+  }
+}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
-
-$animation-duration: 0.4s;
-
 .dropdown {
-  position: relative;
-  width: 100%;
+  --animation-duration: 0.4s;
+
   padding: 2.802em 4.785em 1.3402em 2.1em;
-  border-radius: 10px;
   border-style: solid;
-  border-width: 0em;
-  border-color: transparent;
+  border-width: 0;
   box-sizing: border-box;
-  outline: none;
-  background-color: $bg-element-color;
-  text-align: left;
-  color: $main-color;
-  cursor: pointer;
-  transition: background-color $animation-duration ease-in-out;
-}
+  background-color: var(--bg-element-color);
+  transition: background-color var(--animation-duration) ease-in-out;
 
-.dropdown:hover,
-.dropdown.is-opened {
-  background-color: $bg-dropwawn-active-color;
-}
+  &:hover,
+  &.is-opened {
+    background-color: var(--darkGray-color);
 
-.dropdown::after {
-  content: "";
-  display: block;
-  width: 1em;
-  height: 1em;
-  position: absolute;
-  top: calc(50% - 0.5em);
-  right: 2.214em;
-  border-left: 0.214em solid $fourth-color;
-  border-bottom: 0.214em solid $fourth-color;
-  transform: rotateX(0) rotate(-45deg);
-  transition: transform $animation-duration linear;
-}
+    &::after {
+      transform: rotateX(180deg) rotate(-45deg);
+    }
+  }
 
-.dropdown.is-opened::after {
-  transform: rotateX(180deg) rotate(-45deg);
-}
+  &::after {
+    content: '';
+    display: block;
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: calc(50% - 0.5em);
+    right: 2.214em;
+    border-left: 0.214em solid var(--lightGray-color);
+    border-bottom: 0.214em solid var(--lightGray-color);
+    transform: rotateX(0) rotate(-45deg);
+    transition: transform var(--animation-duration) linear;
+  }
 
-.dropdown__value,
-.dropdown__btn {
-  font-size: 1.428em;
-  line-height: 113.22%;
-  color: $main-color;
-}
+  &__btn {
+    padding: 0.709em 0.75em;
 
-.dropdown__label {
-  position: absolute;
-  left: 2.143em;
-  top: calc(50% - 1.784em);
-  font-size: 1em;
-  line-height: 113.22%;
-  color: $secondary-color;
-  user-select: none;
-}
+    &:hover {
+      background-color: var(--gray-color);
+    }
 
-.dropdown__inner {
-  width: 100%;
-  padding: 1.071em 1.071em 1.428em;
-  position: absolute;
-  top: calc(100% + 0.357em);
-  left: 0;
-  z-index: 1;
-  border-radius: 10px;
-  background-color: $bg-dropwawn-active-color;
-}
+    &:active {
+      box-shadow: inset 0 0 3em var(--bg-element-color);
+    }
+  }
 
-.dropdown__list {
-  max-height: 11em;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+  &__label {
+    left: 2.143em;
+    top: calc(50% - 1.784em);
+    user-select: none;
+  }
 
-.dropdown-list-enter-active,
-.dropdown-list-leave-active {
-  transition-duration: $animation-duration;
-  transition-timing-function: ease;
-  transition-property: transform, opacity;
-}
-.dropdown-list-enter-from,
-.dropdown-list-leave-to {
-  opacity: 0;
-  transform: translateY(2em);
-}
+  &__inner {
+    padding: 1.071em 1.071em 1.428em;
+    top: calc(100% + 0.357em);
+    left: 0;
+    z-index: 1;
+    background-color: var(--darkGray-color);
+  }
 
-.dropdown-items-enter-active,
-.dropdown-items-leave-active {
-  transition-duration: 1s;
-  transition-timing-function: ease;
-  transition-property: transform, opacity, height;
-}
+  &__list {
+    max-height: 11em;
+  }
 
-.dropdown-items-enter-from {
-  height: 0;
-  opacity: 0;
-  transform: translateX(-50px);
-}
+  &-list-enter-active,
+  &-list-leave-active {
+    transition-duration: var(--animation-duration);
+    transition-timing-function: ease;
+    transition-property: transform, opacity;
+  }
 
-.dropdown-items-leave-to {
-  height: 0;
-  opacity: 0;
-  transform: translateX(50px);
-}
+  &-list-enter-from,
+  &-list-leave-to {
+    opacity: 0;
+    transform: translateY(2em);
+  }
 
-.dropdown__btn {
-  width: 100%;
-  padding: 0.709em 0.75em;
-  border: none;
-  border-radius: 10px;
-  background-color: transparent;
-  text-align: left;
-  cursor: pointer;
-}
+  &-items-enter-active,
+  &-items-leave-active {
+    transition-duration: 1s;
+    transition-timing-function: ease;
+    transition-property: transform, opacity, height;
+  }
 
-.dropdown__btn:hover {
-  background-color: $secondary-color;
-}
+  &-items-enter-from {
+    height: 0;
+    opacity: 0;
+    transform: translateX(-3.5714285em);
+  }
 
-.dropdown__btn:active {
-  box-shadow: inset 0 0 3em $bg-element-color;
+  &-items-leave-to {
+    height: 0;
+    opacity: 0;
+    transform: translateX(3.5714285em);
+  }
 }
 </style>

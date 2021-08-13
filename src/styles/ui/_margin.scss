@@ -1,0 +1,155 @@
+@import "../variables/media";
+
+.m-0 {
+  margin: 0;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+.mt-0 {
+  margin-top: 0;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-18 {
+  margin-top: 18px;
+}
+
+@media screen and (min-width: $mb){
+  .mt-mb-0 {
+    margin-top: 0;
+  }
+  .mt-mb-10 {
+    margin-top: 10px;
+  }
+  .mt-mb-18 {
+    margin-top: 18px;
+  }
+}
+
+@media screen and (min-width: $lg){
+  .mt-lg-0 {
+    margin-top: 0;
+  }
+  .mt-lg-10 {
+    margin-top: 10px;
+  }
+  .mt-lg-18 {
+    margin-top: 18px;
+  }
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mr-75 {
+  margin-right: 75px;
+}
+
+.mr-105 {
+  margin-right: 105px;
+}
+
+.mr-110 {
+  margin-right: 110px;
+}
+
+.mr-130 {
+  margin-right: 130px;
+}
+
+@media screen and (min-width: $mb){
+  .mr-mb-20 {
+    margin-right: 20px;
+  }
+
+  .mr-mb-75 {
+    margin-right: 75px;
+  }
+
+  .mr-mb-105 {
+    margin-right: 105px;
+  }
+
+  .mr-mb-110 {
+    margin-right: 110px;
+  }
+
+  .mr-mb-130 {
+    margin-right: 130px;
+  }
+}
+
+@media screen and (min-width: $lg){
+  .mr-lg-20 {
+    margin-right: 20px;
+  }
+
+  .mr-lg-75 {
+    margin-right: 75px;
+  }
+
+  .mr-lg-105 {
+    margin-right: 105px;
+  }
+
+  .mr-lg-110 {
+    margin-right: 110px;
+  }
+
+  .mr-lg-130 {
+    margin-right: 130px;
+  }
+}
+
+@for $i from 0 through 16 {
+  .mb-#{$i * 5} {
+    margin-bottom: #{$i * 5}px;
+  }
+}
+
+@for $i from 0 through 16 {
+  @media screen and (min-width: $mb){
+    .mb-mb-#{$i * 5} {
+      margin-bottom: #{$i * 5}px;
+    }
+  }
+}
+
+@for $i from 0 through 16 {
+  @media screen and (min-width: $lg){
+    .mb-lg-#{$i * 5}{
+      margin-bottom: #{$i * 5}px;
+    }
+  }
+}
+
+.ml-30 {
+  margin-left: 30px;
+}
+
+@media screen and (min-width: $mb){
+  .ml-mb-30 {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (min-width: $lg){
+  .ml-lg-30 {
+    margin-left: 30px;
+  }
+}
+
+.section-margin {
+  margin: calc(-2 * var(--header-padding-vertical)) 0 0;
+}
+
+@media screen and (min-width: $mb){
+  .section-mb-mb-margin {
+    margin-bottom: calc(150px - 2 * var(--header-padding-vertical) - var(--logo-height));
+  }
+}

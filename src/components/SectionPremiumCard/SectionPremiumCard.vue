@@ -1,147 +1,94 @@
 <template>
-  <section class="section-premium-card">
-    <div class="section-premium-card__container">
-      <header class="section-premium-card__heading">
-        <h2 class="section-premium-card__caption">Твоя премиум карта</h2>
-        <span class="section-premium-card__desc">
+  <section class="section-premium-card w-100">
+    <div class="section-premium-card__container p-rel ph-10 m-auto">
+      <header class="section-premium-card__heading d-iblock mb-50">
+        <h2 class="d-block d-lg-inline mb-20 mb-lg-0 text-center text-lg-left promo-caption">Твоя премиум карта</h2>
+        <span class="section-premium-card__desc d-block d-lg-iblock ml-lg-30 text-center text-lg-left bormea">
           Лучшая карта для любителей путешествий
         </span>
       </header>
 
-      <main>
-        <ul class="section-premium-card__list">
-          <li class="section-premium-card__benefit">
+      <main class="d-flex flex-column align-center align-lg-start">
+        <ul class="section-premium-card__list row justify-space-between mb-lg-70">
+          <li
+            v-for="(item, index) in [
+              { caption: '11%', text: 'Вернем за&nbsp;покупки милями' },
+              { caption: '0%', text: 'Бесплатное снятие наличных по всему миру' },
+              { caption: '7%', text: 'До 7% на&nbsp;остаток по&nbsp;счету' },
+              { caption: '0р', text: 'Бесплатное годовое обслуживание' },
+            ]"
+            class="section-premium-card__benefit mb-35 col-5"
+            :key="item.text + index"
+          >
             <benefit>
               <template #caption>
-                11%
+                {{ item.caption }}
               </template>
 
-              Вернем за&nbsp;покупки милями
-            </benefit>
-          </li>
-
-          <li class="section-premium-card__benefit">
-            <benefit>
-              <template #caption>
-                0%
-              </template>
-
-              Бесплатное снятие наличных по всему миру
-            </benefit>
-          </li>
-
-          <li class="section-premium-card__benefit">
-            <benefit>
-              <template #caption>
-                7%
-              </template>
-
-              До 7% на&nbsp;остаток по&nbsp;счету
-            </benefit>
-          </li>
-
-          <li class="section-premium-card__benefit">
-            <benefit>
-              <template #caption>
-                0р
-              </template>
-
-              Бесплатное годовое обслуживание
+              {{ item.text }}
             </benefit>
           </li>
         </ul>
-        <modal-button class="section-premium-card__btn">
-          Заказать сейчас
-        </modal-button>
+        <a href="#section-travel-card" class="button">Заказать сейчас</a>
       </main>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
-import Benefit from "@/components/Benefit/Benefit.vue"
-import ModalButton from "@/components/ModalButton/ModalButton.vue"
+import { Options, Vue } from 'vue-class-component';
+import Benefit from '@/components/Benefit/Benefit.vue';
+import ModalButton from '@/components/ModalButton/ModalButton.vue';
 
 @Options({
+  name: 'SectionPremiumCard',
   components: {
     Benefit,
-    ModalButton
-  }
+    ModalButton,
+  },
 })
 export default class SectionPremiumCard extends Vue {}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
-$width-list: 300px;
+@import 'src/styles/variables/media';
 
 .section-premium-card {
-  padding-bottom: 250px - 2  * $header-padding-vertical - $logo-height;
-  background: transparent url("./assets/cracks.svg") no-repeat center 1.5em /
-    contain;
-  z-index: 1;
-}
+  background: transparent url('./assets/cracks.svg') no-repeat center 1.5em / contain;
 
-.section-premium-card > * {
-  z-index: 2;
-}
+  &__container {
+    max-width: 1000px;
+  }
 
-.section-premium-card__container {
-  position: relative;
-  max-width: 1000px;
-  padding: 0 10px;
-  margin: 0 auto;
+  &__heading {
+    max-width: 735px;
+    vertical-align: center;
+  }
 }
+@media screen and (min-width: $lg) {
+  .section-premium-card {
+    padding-bottom: calc(250px - 2 * var(--header-padding-vertical) - var(--logo-height));
+    --width-list: 300px;
 
-.section-premium-card__container::after {
-  content: url("./assets/premium-card2.png");
-  display: block;
-  position: absolute;
-  top: 1.5em;
-  left: $width-list;
-}
+    &__desc {
+      max-width: 303px;
+    }
 
-.section-premium-card__heading {
-  display: inline-block;
-  max-width: 735px;
-  vertical-align: center;
-  margin-bottom: 50px;
-}
+    &__container::after {
+      content: url('./assets/premium-card2.png');
+      display: block;
+      position: absolute;
+      top: 1.5em;
+      left: var(--width-list);
+    }
 
-.section-premium-card__caption {
-  display: inline;
-  font-size: 6.857em;
-  line-height: 1.135em;
-  font-weight: 900;
-  color: $main-color;
-}
+    &__list {
+      max-width: var(--width-list);
+    }
 
-.section-premium-card__desc {
-  display: inline-block;
-  max-width: 303px;
-  margin-left: 1.367em;
-  font-size: 1.714em;
-  line-height: 1.25em;
-  font-weight: 800;
-  color: $secondary-color;
-}
-
-.section-premium-card__list {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: $width-list;
-  margin-bottom: 69px;
-}
-
-.section-premium-card__benefit {
-  max-width: 127px;
-  margin-bottom: 36px;
-}
-
-.section-premium-card__benefit:nth-child(2n - 1) {
-  max-width: 115px;
-  margin-right: 42px;
+    &__benefit:nth-child(2n - 1) {
+      max-width: 115px;
+    }
+  }
 }
 </style>

@@ -1,55 +1,55 @@
 <template>
-  <span class="switcher-card">
+  <span>
     <input
-      class="switcher-card__body"
+      class="switcher-card d-none"
       type="radio"
-      :name="card.name"
+      :name="name"
       :id="card.id"
-      :checked="card.isCheck"
-      @click.prevent
+      :checked="changed"
+      @change.prevent="changeSwitcher"
     />
-    <label :for="card.id" class="switcher-card__label">
+    <label :for="card.id" class="switcher-card__label maria c-pointer">
       {{ card.label }}
     </label>
   </span>
 </template>
 
 <script lang="ts">
-import SwitcherCardClass from "@/components/SwitcherCard/interface/SwitcherCard"
-import { Options, Vue } from "vue-class-component"
+import { Options, Vue } from 'vue-class-component';
+import { Prop, Emit } from 'vue-property-decorator';
+import { TSwitcherCard } from '@/types/SwitcherCard';
 
 @Options({
-  props: {
-    card: {
-      type: SwitcherCardClass,
-      require: true
-    }
-  },
-  emits: ['update:card.isCheck']
+  name: 'SwitcherCard',
 })
-export default class SwitcherCard extends Vue {}
+export default class SwitcherCard extends Vue {
+  @Prop({
+    require: true,
+  })
+  private card!: TSwitcherCard;
+  @Prop({
+    require: false,
+    default: () => false,
+  })
+  private changed!: boolean;
+  @Prop({
+    require: true,
+  })
+  private name!: string;
+  @Emit() changeSwitcher(): void {
+    return void 0;
+  }
+}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
+.switcher-card {
+  &:checked + &__label {
+    color: var(--peru-color);
+  }
 
-.switcher-card__label {
-  font-size: 1.285em;
-  line-height: 1.277em;
-  font-weight: 700;
-  color: $secondary-color;
-  cursor: pointer;
-}
-
-.switcher-card__body {
-  display: none;
-}
-
-.switcher-card__body:checked + .switcher-card__label {
-  color: $third-color;
-}
-
-.switcher-card__body:hover + .switcher-card__label {
-  text-shadow: 0 0 0.5em currentColor;
+  &:hover + &__label {
+    text-shadow: 0 0 0.5em currentColor;
+  }
 }
 </style>

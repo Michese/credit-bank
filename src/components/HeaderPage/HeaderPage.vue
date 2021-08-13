@@ -1,62 +1,47 @@
 <template>
-  <header class="header-page">
-    <div class="header-page__inner">
-      <menu-toggle
-        class="header-page__menu-toggle"
-        :isActive="menuIsOpen"
-        @open-menu="$emit('openMenu')"
-      />
+  <header class="header-page p-sticky z-index-3 mb-mb-80">
+    <div class="header-page__inner d-flex align-center justify-space-between justify-mb-start m-auto">
+      <menu-toggle class="mr-20 mt-mb-75" :isActive="menuIsOpen" @click="toggleMenu" />
       <logo />
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
-import MenuToggle from "@/components/MenuToggle/MenuToggle.vue"
-import Logo from "@/components/Logo/Logo.vue"
+import { Options, Vue } from 'vue-class-component';
+import { Prop, Emit } from 'vue-property-decorator';
+import MenuToggle from '@/components/MenuToggle/MenuToggle.vue';
+import Logo from '@/components/Logo/Logo.vue';
 
 @Options({
+  name: 'HeaderPage',
   components: {
     MenuToggle,
-    Logo
+    Logo,
   },
-  props: {
-    menuIsOpen: Boolean
-  },
-  emits: ["openMenu"]
 })
-export default class HeaderPage extends Vue {}
+export default class HeaderPage extends Vue {
+  @Prop({
+    require: true,
+  })
+  private menuIsOpen!: boolean;
+  @Emit() toggleMenu(): void {
+    return void 0;
+  }
+}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
-
 .header-page {
-  position: sticky;
   top: 0;
   left: 0;
-  z-index: 3;
-  margin: 45px auto 80px;
-  padding: $header-padding-vertical 10px;
+  right: 0;
+  margin: 20px 0 20px;
+  padding: var(--header-padding-vertical) 10px;
   background-color: inherit;
-}
 
-.header-page__inner {
-  display: flex;
-  align-items: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.header-page__menu-toggle {
-  position: absolute;
-  top: calc(50% - 0.38em);
-  left: -76px;
-}
-
-.header-page__logo {
-  margin-top: 10px;
+  &__inner {
+    max-width: 1200px;
+  }
 }
 </style>

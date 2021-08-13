@@ -1,0 +1,162 @@
+@use "sass:math";
+
+@import "src/styles/variables/media";
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex-basis: math.div(100 * $i, 12) * 1%;
+  }
+}
+@for $i from 1 through 12 {
+  @media screen and (min-width: $mb){
+    .col-mb-#{$i} {
+      flex-basis: math.div(100 * $i, 12) * 1%;
+    }
+  }
+}
+@for $i from 1 through 12 {
+  @media screen and (min-width: $lg){
+    .col-lg-#{$i} {
+      flex-basis: math.div(100 * $i, 12) * 1%;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.d-flex{
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.align-center{
+  align-items: center;
+}
+.align-start{
+  align-items: flex-start;
+}
+.align-end{
+  align-items: flex-end;
+}
+.justify-center{
+  justify-content: center;
+}
+.justify-start{
+  justify-content: flex-start;
+}
+.justify-end{
+  justify-content: flex-end;
+}
+.justify-space-between{
+  justify-content: space-between;
+}
+.justify-space-evenly {
+  justify-content: space-evenly;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+@media screen and (min-width: $mb){
+  .row-mb {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .d-mb-flex{
+    display: flex;
+  }
+  .flex-mb-column {
+    flex-direction: column;
+  }
+  .flex-mb-row {
+    flex-direction: row;
+  }
+  .align-mb-center{
+    align-items: center;
+  }
+  .align-mb-start{
+    align-items: flex-start;
+  }
+  .align-mb-end{
+    align-items: flex-end;
+  }
+  .justify-mb-center{
+    justify-content: center;
+  }
+  .justify-mb-start{
+    justify-content: flex-start;
+  }
+  .justify-mb-end{
+    justify-content: flex-end;
+  }
+  .justify-mb-space-between{
+    justify-content: space-between;
+  }
+  .justify-mb-space-evenly {
+    justify-content: space-evenly;
+  }
+  .flex-mb-wrap {
+    flex-wrap: wrap;
+  }
+  .flex-mb-auto {
+    flex: 1 1 auto;
+  }
+}
+
+@media screen and (min-width: $lg){
+  .row-lg {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .d-lg-flex{
+    display: flex;
+  }
+  .flex-lg-column {
+    flex-direction: column;
+  }
+  .flex-lg-row {
+    flex-direction: row;
+  }
+  .align-lg-center{
+    align-items: center;
+  }
+  .align-lg-start{
+    align-items: flex-start;
+  }
+  .align-lg-end{
+    align-items: flex-end;
+  }
+  .justify-lg-center{
+    justify-content: center;
+  }
+  .justify-lg-start{
+    justify-content: flex-start;
+  }
+  .justify-lg-end{
+    justify-content: flex-end;
+  }
+  .justify-lg-space-between{
+    justify-content: space-between;
+  }
+  .justify-lg-space-evenly {
+    justify-content: space-evenly;
+  }
+  .flex-lg-wrap {
+    flex-wrap: wrap;
+  }
+  .flex-lg-auto {
+    flex: 1 1 auto;
+  }
+}

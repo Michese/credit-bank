@@ -1,0 +1,30 @@
+.button {
+  display: inline-block;
+  margin: 0;
+  padding: 24.5px 44px;
+  background-color: var(--peru-color);
+  text-align: center;
+  font-weight: 700;
+  line-height: 113.22%;
+  font-size: 1.71em;
+  color: var(--white-color);
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+
+  &:hover {
+    background-color: var(--darkPeru-color);
+  }
+
+  &:active {
+    background-color: var(--peru-color);
+  }
+
+  &:disabled {
+    background-color: var(--bg-element-color);
+    cursor: default;
+  }
+}
+

@@ -1,46 +1,27 @@
 <template>
-  <div class="contact">
-    <span class="contact__location"><slot></slot></span>
-    <a :href="parsePhone" class="contact__phone">{{ phone }}</a>
+  <div class="d-flex flex-column">
+    <span class="nerin"><slot></slot></span>
+    <a :href="parsePhone" class="light-gray-link">{{ phone }}</a>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
+
 @Options({
-  props: {
-    phone: String
-  },
-  computed: {
-    parsePhone() {
-      return `tel:${this.phone.replace(/^8/, "+7").replace(/\s/gi, "")}`
-    }
-  }
+  name: 'Contact',
 })
-export default class Contact extends Vue {}
+export default class Contact extends Vue {
+  @Prop({
+    require: true,
+  })
+  private phone!: string;
+
+  get parsePhone(): string {
+    return `tel:${this.phone.replace(/^8/, '+7').replace(/\s/gi, '')}`;
+  }
+}
 </script>
 
-<style lang="scss">
-@import "@/styles/_variables.scss";
-
-.contact {
-  display: flex;
-  flex-direction: column;
-}
-
-.contact__location {
-  font-size: 1em;
-  line-height: 1.857em;
-  color: $secondary-color;
-}
-
-.contact__phone {
-  font-size: 1.714em;
-  line-height: 1em;
-  color: $fourth-color;
-}
-
-.contact__phone:hover {
-  color: $main-color;
-}
-</style>
+<style lang="scss"></style>

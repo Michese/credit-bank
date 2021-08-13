@@ -1,63 +1,44 @@
 <template>
-  <section class="section-advantages" id="section-advantages">
-    <header class="section-advantages__heading">
-      <section-caption class="section-advantages__section-caption">
-        Путешествие мечты начинается с CARD PLUS
-      </section-caption>
-      <p class="section-advantages__subcaption">
-        Мы продумали каждую мелочь. Владельцы CARD PLUS получают особый пакет
-        привилегий, необходимый для любого путешествия
+  <section class="section-advantages mt-lg-0" id="section-advantages">
+    <header class="mb-30 mb-mb-80 text-center">
+      <h3 class="section-caption mb-10">Путешествие мечты начинается с CARD PLUS</h3>
+      <p class="section-advantages__subcaption d-iblock clonia gray-color">
+        Мы продумали каждую мелочь. Владельцы CARD PLUS получают особый пакет привилегий, необходимый для любого
+        путешествия
       </p>
     </header>
 
     <main>
-      <ul class="section-advantages__list">
+      <ul class="d-flex row justify-center justify-mb-space-between">
         <li
-          class="section-advantages__advantage-item section-advantages__advantage-item_img_tickets"
+          v-for="(item, index) in [
+            {
+              caption: 'Билеты любых авиакомпаний',
+              text: 'Предложения от 300+ авиакомпаний, 185+ lowcost&nbsp;перевозчиков, чартеры от&nbsp;60&nbsp;крупных российскихтуроператоров',
+              class: 'section-advantages__item_img_tickets',
+            },
+            {
+              caption: 'Мили больше не&nbsp;сгорают',
+              text: 'Мили, накопленные при оплате картой AlfaTravel, не&nbsp;сгорают и остаются на вашем счете, пока вы не решите их потратить',
+              class: 'section-advantages__item_img_air',
+            },
+            {
+              caption: 'Продвинутая страховка – бесплатно',
+              text: 'Расширенная страховка для&nbsp;всей семьи с&nbsp;учетом экстремальных видов спорта и алкоголя',
+              class: 'section-advantages__item_img_insurance',
+            },
+            {
+              caption: 'Доступ к счетам в&nbsp;разных валютах',
+              text: 'Текущие счета в рублях, долларах США, евро, английских фунтах стерлингов и швейцарских франках открываются в&nbsp;любой момент',
+              class: 'section-advantages__item_img_coins',
+            },
+          ]"
+          class="section-advantages__item col-10 col-mb-5 col-lg-2 mb-20 mb-lg-0 text-center text-mb-left"
+          :class="item.class"
+          :key="item.class + index"
         >
-          <strong class="advantage__advantage-caption">
-            Билеты любых авиакомпаний
-          </strong>
-          <p class="advantage__advantage-text">
-            Предложения от 300+ авиакомпаний, 185+ lowcost&nbsp;перевозчиков,
-            чартеры от&nbsp;60&nbsp;крупных российскихтуроператоров
-          </p>
-        </li>
-
-        <li
-          class="section-advantages__advantage-item section-advantages__advantage-item_img_air"
-        >
-          <strong class="advantage__advantage-caption">
-            Мили больше не&nbsp;сгорают
-          </strong>
-          <p class="advantage__advantage-text">
-            Мили, накопленные при оплате картой AlfaTravel, не&nbsp;сгорают и
-            остаются на вашем счете, пока вы не решите их потратить
-          </p>
-        </li>
-
-        <li
-          class="section-advantages__advantage-item section-advantages__advantage-item_img_insurance"
-        >
-          <strong class="advantage__advantage-caption">
-            Продвинутая страховка – бесплатно
-          </strong>
-          <p class="advantage__advantage-text">
-            Расширенная страховка для&nbsp;всей семьи с&nbsp;учетом
-            экстремальных видов спорта и алкоголя
-          </p>
-        </li>
-
-        <li
-          class="section-advantages__advantage-item section-advantages__advantage-item_img_coins"
-        >
-          <strong class="advantage__advantage-caption">
-            Доступ к счетам в&nbsp;разных валютах
-          </strong>
-          <p class="advantage__advantage-text">
-            Текущие счета в рублях, долларах США, евро, английских фунтах
-            стерлингов и швейцарских франках открываются в&nbsp;любой момент
-          </p>
+          <strong class="d-block mb-10 oronia">{{ item.caption }}</strong>
+          <p class="menippe">{{ item.text }}</p>
         </li>
       </ul>
     </main>
@@ -65,90 +46,45 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
-import SectionCaption from "@/components/SectionCaption/SectionCaption.vue"
-
+import { Options, Vue } from 'vue-class-component';
 @Options({
-  components: {
-    SectionCaption
-  }
+  name: 'SectionAdvantages',
 })
-export default class SectionAdvantages extends Vue {}
+export default class SectionAdvantages extends Vue {
+  onScroll(el: { target: HTMLElement }): void {
+    console.log('SectionAdvantages', el.target);
+  }
+}
 </script>
 
 <style lang="scss">
-@import "@/styles/_variables.scss";
+@import 'src/styles/variables/media';
 
 .section-advantages {
   max-width: 1028px;
-  margin: 0 auto 150px - 2  * $header-padding-vertical - $logo-height;
-  padding: 2  * $header-padding-vertical + $logo-height 10px 0;
+  padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 10px 0;
+  margin: calc(-2 * var(--header-padding-vertical)) 0 0;
+  &__subcaption {
+    max-width: 530px;
+  }
+
+  &__item {
+    &::before {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    @each $image in ('tickets', 'air', 'insurance', 'coins') {
+      &_img_#{$image}:before {
+        content: url('./assets/#{$image}.svg');
+      }
+    }
+  }
 }
 
-.section-advantages__heading {
-  text-align: center;
-  margin-bottom: 80px;
-}
-
-.section-advantages__section-caption {
-  margin-bottom: 0.267em;
-}
-
-.section-advantages__subcaption {
-  display: inline-block;
-  max-width: 530px;
-  font-size: 1em;
-  line-height: 1.2856em;
-  font-weight: 700;
-  color: $secondary-color;
-}
-
-.section-advantages__list {
-  display: flex;
-}
-
-.section-advantages__advantage-item {
-  flex: 1 1 25%;
-}
-
-.section-advantages__advantage-item:not(:last-child) {
-  margin-right: 63px;
-}
-
-.section-advantages__advantage-item::before {
-  display: block;
-  margin-bottom: 1em;
-}
-
-.section-advantages__advantage-item_img_tickets:before {
-  content: url("./assets/tickets.svg");
-}
-
-.section-advantages__advantage-item_img_air:before {
-  content: url("./assets/air.svg");
-}
-
-.section-advantages__advantage-item_img_insurance:before {
-  content: url("./assets/insurance.svg");
-}
-
-.section-advantages__advantage-item_img_coins:before {
-  content: url("./assets/coins.svg");
-}
-
-.advantage__advantage-caption {
-  display: block;
-  font-size: 1.286em;
-  line-height: 1.278em;
-  font-weight: 800;
-  color: $main-color;
-  margin-bottom: 0.5em;
-}
-
-.advantage__advantage-text {
-  font-size: 1em;
-  line-height: 1.43em;
-  font-weight: 700;
-  color: $secondary-color;
+@media screen and (min-width: $mb) {
+  .section-advantages {
+    margin-bottom: calc(150px - 2 * var(--header-padding-vertical) - var(--logo-height));
+  }
 }
 </style>

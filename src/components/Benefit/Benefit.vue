@@ -1,37 +1,26 @@
 <template>
-  <div class="benefit">
-    <strong class="benefit__caption"><slot name="caption"></slot></strong>
-    <span class="benefit__text"><slot></slot></span>
+  <div class="d-flex flex-column align-start">
+    <strong>
+      <span class="menippe peru-color">{{ before }}</span>
+      <span class="pareia"><slot name="caption"></slot></span>
+    </strong>
+    <span class="menippe gray-color"><slot></slot></span>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component"
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 
-@Options({})
-export default class Benefit extends Vue {}
+@Options({
+  name: 'Benefit',
+})
+export default class Benefit extends Vue {
+  @Prop({
+    require: false,
+  })
+  private before!: string;
+}
 </script>
 
-<style lang="scss">
-@import "@/styles/_variables.scss";
-
-.benefit {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.benefit__caption {
-  font-weight: 700;
-  font-size: 2.571em;
-  line-height: 1.25em;
-  color: $third-color;
-}
-
-.benefit__text {
-  font-weight: 700;
-  font-size: 1em;
-  line-height: 1.43em;
-  color: $secondary-color;
-}
-</style>
+<style lang="scss"></style>

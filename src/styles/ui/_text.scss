@@ -1,0 +1,110 @@
+@import "src/styles/variables/media";
+
+.alert-text {
+  font-size: 0.8571428em; // 12px
+  line-height: 1.1322em;
+  color: var(--alert-color);
+}
+
+.gray-link {
+  line-height: 2.14285em;
+
+  &:hover {
+    color: var(--white-color);
+  }
+}
+.crephusa {
+  line-height: 1.1322em;
+}
+.clonia {
+  line-height: 1.2857em;
+  font-weight: 700;
+}
+.menippe {
+  line-height: 1.42857em;
+  font-weight: 700;
+}
+.nerin {
+  line-height: 1.8571428em;
+}
+.check-label {
+  line-height: 1.125em;
+  font-size: 1.142857em; // 16px
+}
+.oronia {
+  line-height: 1.2777777em;
+  font-size: 1.2857em; // 18px
+  font-weight: 800;
+  color: var(--white-color);
+}
+.maria {
+  line-height: 1.2777777em;
+  font-size: 1.2857em; // 18px
+  font-weight: 700;
+}
+.white-link {
+  line-height: 1.6666666em;
+  font-size: 1.2857em; // 18px
+  font-weight: 700;
+  color: var(--white-color);
+
+  &:hover {
+    color: var(--peru-color);
+  }
+}
+.input-text {
+  line-height: 1.15em;
+  font-size: 1.42857em; // 20px
+}
+.bormea {
+  line-height: 1.25em;
+  font-size: 1.7142857em; // 24px
+  font-weight: 800;
+}
+.nomira {
+  line-height: 1.125em;
+  font-size: 1.7142857em; // 24px
+  font-weight: 700;
+  color: var(--white-color);
+}
+.light-gray-link {
+  line-height: 1em;
+  font-size: 1.7142857em; // 24px
+  color: var(--lightGray-color);
+
+  &:hover {
+    color: var(--peru-color);
+  }
+}
+.modal-caption {
+  line-height: 1.133333em;
+  font-size: 2.142857em; // 30px
+  font-weight: 800;
+  color: var(--white-color);
+}
+.section-caption {
+  line-height: 1.2666666em;
+  font-size: 2.142857em; // 30px
+  font-weight: 800;
+  color: var(--white-color);
+}
+
+.pareia {
+  line-height: 1.25em;
+  font-size: 2.57142857em; // 36px
+  font-weight: 700;
+  color: var(--peru-color);
+}
+
+.promo-caption {
+  line-height: 1.1354166em;
+  font-size: 4.5em; // 70px
+  font-weight: 900;
+  color: var(--white-color);
+}
+
+@media screen and (min-width: $mb){
+  .promo-caption {
+    font-size: 6.8571428em; // 96px
+  }
+}
