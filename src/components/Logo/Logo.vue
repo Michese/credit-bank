@@ -12,7 +12,7 @@ import { Options, Vue } from 'vue-class-component';
 })
 export default class Logo extends Vue {}
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .logo__image {
   min-height: var(--logo-height);
 }

@@ -31,7 +31,7 @@ export default class HeaderPage extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header-page {
   top: 0;
   left: 0;

@@ -10,8 +10,6 @@
         :value="getDisplay"
         @input="onInput"
       />
-      <!--        :value="value"-->
-      <!--        @input="updatedInput($event.target.value)"-->
       <label class="input__placeholder p-abs input-text" :for="renderId"><slot></slot></label>
     </div>
     <transition name="input-alert">
@@ -110,7 +108,7 @@ export default class Input extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .input {
   --animation-duration: 0.3s;
 

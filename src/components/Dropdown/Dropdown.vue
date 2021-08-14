@@ -61,7 +61,7 @@ export default class Dropdown extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dropdown {
   --animation-duration: 0.4s;
 

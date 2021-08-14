@@ -64,7 +64,7 @@ export default class SectionPremiumCard extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
 
 .section-premium-card {

@@ -63,7 +63,7 @@ import Contact from '@/components/Contact/Contact.vue';
 export default class FooterPage extends Vue {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
 
 .footer-page {

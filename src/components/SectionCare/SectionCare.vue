@@ -86,7 +86,7 @@ export default class SectionCare extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
 
 .section-care {

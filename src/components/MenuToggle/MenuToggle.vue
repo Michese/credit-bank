@@ -29,7 +29,7 @@ export default class MenuToggle extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .menu-toggle {
   --animation-duration: 0.5s;
   --animation-start-duration: 0.3s;

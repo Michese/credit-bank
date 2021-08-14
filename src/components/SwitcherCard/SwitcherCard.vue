@@ -42,7 +42,7 @@ export default class SwitcherCard extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .switcher-card {
   &:checked + &__label {
     color: var(--peru-color);

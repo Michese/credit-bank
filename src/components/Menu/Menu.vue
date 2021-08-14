@@ -51,7 +51,7 @@ export default class Menu extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
 .menu {
   top: 0;

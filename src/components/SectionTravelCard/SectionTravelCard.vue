@@ -133,8 +133,9 @@ export default class SectionTravelCard extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
+
 .section-travel-card {
   &__benefits {
     max-width: 780px;

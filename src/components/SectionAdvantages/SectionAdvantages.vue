@@ -63,13 +63,11 @@ export default class SectionAdvantages extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'src/styles/variables/media';
 
 .section-advantages {
   max-width: 1028px;
-  //padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 10px 0;
-  //margin: calc(-2 * var(--header-padding-vertical)) 0 0;
   &__subcaption {
     max-width: 530px;
   }
