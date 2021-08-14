@@ -1,7 +1,7 @@
 <template>
   <header class="header-page p-sticky z-index-3 mb-mb-80">
     <div class="header-page__inner d-flex align-center justify-space-between justify-mb-start m-auto">
-      <menu-toggle class="mr-20 mt-mb-75" :isActive="menuIsOpen" @click="toggleMenu" />
+      <menu-toggle class="mr-20 mr-mb-75" :isActive="menuIsOpen" @click="toggleMenu" />
       <logo />
     </div>
   </header>

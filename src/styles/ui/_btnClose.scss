@@ -1,0 +1,44 @@
+.btn-close {
+  display: block;
+  position: relative;
+  width: 4.2857em;
+  height: 4.2857em;
+  padding: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &::before,
+  &::after {
+    --height: 40%;
+
+    content: '';
+    display: block;
+    height: var(--height);
+    position: absolute;
+    top: calc((100% - var(--height)) / 2);
+    left: calc(50% - 0.1em);
+    border-left: 0.2em solid var(--gray-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    border-left-color: var(--peru-color);
+    box-shadow: 0 0 1em var(--peru-color);
+  }
+}

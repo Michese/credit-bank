@@ -1,28 +1,30 @@
 <template>
-  <div class="menu p-fixed overflow-x-hidden z-index-5" :class="{ isOpen: menuIsOpen }">
-    <menu-toggle class="d-block d-lg-none mb-20" :isActive="true" @click="closeMenu" />
-    <nav>
-      <ul>
-        <li
-          class="mb-20 white-link"
-          v-for="(item, index) in [
-            { link: '#section-advantages', text: 'Какие преимущества' },
-            { link: '#section-care', text: 'Что вы получаете' },
-            { link: '#section-assistant', text: 'Еще сюрпризы' },
-            { link: '#section-travel-card', text: 'Оформить карту' },
-          ]"
-          :key="item.link + index"
-        >
-          <a :href="item.link" @click="closeMenu">{{ item.text }}</a>
-        </li>
-      </ul>
-    </nav>
+  <transition name="menu">
+    <section v-if="menuIsOpen" class="menu p-fixed overflow-x-hidden z-index-5" @click.stop>
+      <button type="button" class="btn-close d-block d-lg-none mb-20" @click="closeMenu" />
+      <nav>
+        <ul>
+          <li
+            class="mb-20 white-link"
+            v-for="(item, index) in [
+              { link: '#section-advantages', text: 'Какие преимущества' },
+              { link: '#section-care', text: 'Что вы получаете' },
+              { link: '#section-assistant', text: 'Еще сюрпризы' },
+              { link: '#section-travel-card', text: 'Оформить карту' },
+            ]"
+            :key="item.link + index"
+          >
+            <a :href="item.link" @click="closeMenu">{{ item.text }}</a>
+          </li>
+        </ul>
+      </nav>
 
-    <div class="menu__contacts">
-      <contact class="menu__contact" phone="8 800 950 6570"> По России </contact>
-      <contact class="menu__contact" phone="8 800 950 6570"> По Миру </contact>
-    </div>
-  </div>
+      <div class="menu__contacts">
+        <contact class="menu__contact" phone="8 800 950 6570"> По России </contact>
+        <contact class="menu__contact" phone="8 800 950 6570"> По Миру </contact>
+      </div>
+    </section>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -58,12 +60,6 @@ export default class Menu extends Vue {
   bottom: 0;
   padding: 40px;
   background-color: var(--lightBlack-color);
-  transition: transform var(--duration-opening-menu) ease-in-out;
-  transform: translateX(-100%);
-
-  &.isOpen {
-    transform: translateX(0%);
-  }
   &__contact:not(:last-child) {
     margin-bottom: 30px;
   }

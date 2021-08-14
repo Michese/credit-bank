@@ -3,5 +3,5 @@ export type TInput = {
   name: string;
   placeholder: string;
   pattern: RegExp;
-  value?: string;
+  value: string;
 };

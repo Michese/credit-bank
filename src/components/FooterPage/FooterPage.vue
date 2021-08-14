@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer-page w-100 mb-50 pt-mb-160">
+  <footer class="footer-page w-100 pb-50 pt-mb-160">
     <div
       class="footer-page__container d-flex flex-column flex-lg-row justify-lg-space-between align-center ph-10 m-auto"
     >

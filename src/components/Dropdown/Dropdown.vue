@@ -10,7 +10,7 @@
       {{ dropdown.options[dropdown.selectedIndex].text }}
     </span>
 
-    <transition name="dropdown-list w-100">
+    <transition name="dropdown-list">
       <div v-show="isOpen" class="dropdown__inner p-abs w-100 rounded">
         <transition-group class="dropdown__list overflow-x-hidden" name="dropdown-items" tag="ul">
           <li v-for="option in getOptions" :key="option.index">
@@ -148,13 +148,13 @@ export default class Dropdown extends Vue {
   &-items-enter-from {
     height: 0;
     opacity: 0;
-    transform: translateX(-3.5714285em);
+    transform: translateX(-100%);
   }
 
   &-items-leave-to {
     height: 0;
     opacity: 0;
-    transform: translateX(3.5714285em);
+    transform: translateX(100%);
   }
 }
 </style>

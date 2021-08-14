@@ -5,23 +5,13 @@
     </button>
     <teleport to="body">
       <transition name="modal">
-        <section
-          v-if="isOpen"
-          class="modal d-flex justify-center align-center p-fixed"
-          @click.stop
-          @wheel.stop.self.passive.prevent.capture.once
-          @scroll.stop.self.passive.prevent.capture.once
-        >
-          <transition name="modal-inner" mode="out-in">
+        <section v-if="isOpen" v-bodyoverflow class="modal d-flex justify-center align-center p-fixed">
+          <transition name="fade-in" mode="out-in">
             <div v-if="!isDone" class="modal__inner w-100" @click.stop>
               <form class="d-flex flex-column align-center w-100 h-100" action="#" method="POST">
                 <header class="d-block p-rel w-100 mb-50 text-center">
                   <h3 class="modal-caption text-center">Заявка на карту</h3>
-                  <button
-                    type="button"
-                    class="modal__btn-close p-0 p-abs transparent b-none outline-none c-pointer"
-                    @click.stop="onClose"
-                  ></button>
+                  <button type="button" class="modal__btn-close btn-close p-abs" @click.stop="onClose"></button>
                 </header>
                 <main class="d-flex flex-column align-start w-100">
                   <Input
@@ -48,7 +38,7 @@
               </form>
             </div>
             <div v-else class="d-flex flex-column justify-center align-center w-100 h-100" @click.stop="onClose">
-              <div class="modal__success-icon"></div>
+              <div class="success-icon"></div>
               <h3 class="modal-caption mb-10 text-center">Ваша заявка принята</h3>
               <p class="menippe text-center">В ближайшее время с вами свяжется наш менеджер</p>
             </div>
@@ -61,7 +51,7 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Prop, Watch } from 'vue-property-decorator';
+import { Prop } from 'vue-property-decorator';
 import Input from '@/components/Input/Input.vue';
 import Dropdown from '@/components/Dropdown/Dropdown.vue';
 import Checkbox from '@/components/Checkbox/Checkbox.vue';
@@ -93,18 +83,21 @@ export default class ModalButton extends Vue {
       name: 'name',
       placeholder: 'ФИО',
       pattern: /^[a-zа-яА-ЯёЁ]{2,}\s[a-zа-яА-ЯёЁ]{2,}\s[a-zа-яА-ЯёЁ]{2,}$/i,
+      value: '',
     },
     {
       type: 'email',
       name: 'email',
       placeholder: 'Электронный адрес',
       pattern: /^[a-z]+.+@[a-z]{2,}.[a-z]{2,}$/i,
+      value: '',
     },
     {
       type: 'tel',
       name: 'phone',
       placeholder: 'Номер телефона',
       pattern: /^\d{11}$/i,
+      value: '',
     },
   ];
 
@@ -117,20 +110,11 @@ export default class ModalButton extends Vue {
     name: 'approval',
     checked: false,
   };
-  @Watch('isOpen') wIsOpen(): void {
-    const body = document.querySelector('body');
-    if (this.isOpen && body) {
-      body.style.overflowY = 'hidden';
-    } else if (body) {
-      body.style.overflowY = 'auto';
-    }
-  }
   get submitDisabled(): boolean {
     return !this.formIsValid();
   }
   created(): void {
     this.dropdown.options.forEach((option: TOption, index: number) => (option.index = index));
-    this.inputs.forEach((input: TInput) => (input.value = ''));
   }
   formIsValid(): boolean {
     const inputsIsValid = this.inputs.reduce((total: boolean, input: TInput) => {
@@ -187,92 +171,16 @@ export default class ModalButton extends Vue {
   z-index: 10;
   background-color: #000000;
 
+  &__btn-close {
+    top: calc(50% - 2.1428em);
+    right: 0;
+  }
   &__inner {
     font-size: 10px;
     max-width: calc(700px + 5em);
     max-height: 100vh;
     overflow-y: auto;
     padding: 10px calc(5em + 10px) calc(4em + 10px) 10px;
-  }
-
-  &__btn-close {
-    width: 4.2857em;
-    height: 4.2857em;
-    top: calc(50% - 2.1428em);
-    right: 0;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-
-    &::before,
-    &::after {
-      --height: 40%;
-
-      content: '';
-      display: block;
-      height: var(--height);
-      position: absolute;
-      top: calc((100% - var(--height)) / 2);
-      left: calc(50% - 0.1em);
-      border-left: 0.2em solid var(--gray-color);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    &::before {
-      transform: rotate(45deg);
-    }
-
-    &::after {
-      transform: rotate(-45deg);
-    }
-
-    &:hover::before,
-    &:hover::after {
-      border-left-color: var(--peru-color);
-      box-shadow: 0 0 1em var(--peru-color);
-    }
-  }
-
-  &__success-icon {
-    width: 2.285em;
-    height: 1.428em;
-    margin-bottom: 1.357em;
-    border-left: 0.428em solid var(--success-color);
-    border-bottom: 0.428em solid var(--success-color);
-    transform: rotate(-45deg);
-  }
-
-  &-enter-active,
-  &-leave-active {
-    transition-duration: 0.6s;
-    transition-timing-function: ease-in-out;
-    transition-property: transform, opacity;
-  }
-
-  &-enter-from {
-    opacity: 0;
-    transform: translateY(-50%);
-  }
-
-  &-leave-to {
-    opacity: 0;
-    transform: translateY(50%);
-  }
-
-  &-inner {
-    &-enter-active,
-    &-leave-active {
-      transition-duration: 1s;
-      transition-timing-function: linear;
-      transition-property: opacity;
-    }
-
-    &-enter-from,
-    &-leave-to {
-      opacity: 0;
-    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <section class="section-assistant w-100 mt-lg-0" id="section-assistant">
+  <section class="section-assistant section-margin w-100 mt-lg-0" id="section-assistant">
     <header class="ph-10 m-auto mb-60 text-center">
       <h3 class="mb-10 section-caption">Персональный помощник</h3>
       <span class="clonia white-color">
@@ -9,7 +9,12 @@
     </header>
     <main class="section-assistant__inner pb-30 pb-lg-160">
       <div class="section-assistant__container d-flex justify-center justify-lg-end align-center ph-10 m-auto">
-        <ul class="section-assistant__list">
+        <transition-group
+          name="list-from-left"
+          tag="ul"
+          class="section-assistant__list"
+          v-scrollanimation="onScrollList"
+        >
           <li
             v-for="(item, index) in [
               {
@@ -29,13 +34,14 @@
                 class: 'section-assistant__item_img_glass',
               },
             ]"
+            :key="item.class + index"
+            v-show="showList"
             class="section-assistant__item d-flex align-center menippe white-color"
             :class="item.class"
-            :key="item.class + index"
           >
             {{ item.text }}
           </li>
-        </ul>
+        </transition-group>
       </div>
     </main>
   </section>
@@ -47,16 +53,18 @@ import { Options, Vue } from 'vue-class-component';
 @Options({
   name: 'SectionAssistant',
 })
-export default class SectionAssistant extends Vue {}
+export default class SectionAssistant extends Vue {
+  showList = false;
+  onScrollList(): void {
+    this.showList = true;
+  }
+}
 </script>
 
 <style lang="scss">
 @import 'src/styles/variables/media';
 
 .section-assistant {
-  margin-top: calc(-2 * var(--header-padding-vertical));
-  padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 0 0;
-
   &__container {
     max-width: 820px;
   }

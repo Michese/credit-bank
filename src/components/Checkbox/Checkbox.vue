@@ -24,7 +24,7 @@ export default class Checkbox extends Vue {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .checkbox {
   &__inner {
     width: 2.7857em;

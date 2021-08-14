@@ -1,13 +1,19 @@
 <template>
-  <section class="section-care mt-mb-0" id="section-care">
+  <section class="section-care section-margin mt-mb-0 ph-10" id="section-care">
     <header class="mb-75">
       <h3 class="section-caption text-center">Мы позаботились, чтобы вы получили</h3>
     </header>
     <main>
-      <ul class="row justify-center justify-mb-space-between align-center align-mb-start">
+      <transition-group
+        name="list-from-right"
+        tag="ul"
+        class="row justify-center justify-mb-space-between align-center align-mb-start"
+        v-scrollanimation="onScroll"
+      >
         <li
           v-for="item in items"
           :key="item.title"
+          v-show="showList"
           class="section-care__item col-10 col-mb-5 col-lg-2 d-block mb-40 text-center text-mb-left"
           :class="item.class"
         >
@@ -25,7 +31,7 @@
             />
           </span>
         </li>
-      </ul>
+      </transition-group>
     </main>
   </section>
 </template>
@@ -43,6 +49,7 @@ import gett from './assets/gett.png';
   name: 'SectionCare',
 })
 export default class SectionCare extends Vue {
+  showList = false;
   items = [
     {
       title: 'Бесплатный безлимитный интернет в роуминге',
@@ -73,6 +80,9 @@ export default class SectionCare extends Vue {
       class: 'section-care__item_img_priority-pass',
     },
   ];
+  onScroll(): void {
+    this.showList = true;
+  }
 }
 </script>
 
@@ -81,8 +91,6 @@ export default class SectionCare extends Vue {
 
 .section-care {
   max-width: 1002px;
-  margin: calc(-2 * var(--header-padding-vertical)) auto 0;
-  padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 10px 0;
 
   &__item {
     &::before {

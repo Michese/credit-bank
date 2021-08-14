@@ -1,0 +1,77 @@
+@import "../variables/media";
+$padding: 0, 10;
+$padding-top: 160;
+$padding-bottom: 30, 50, 160;
+
+@each $class in $padding {
+  .p-#{$class} {
+    padding: #{$class}px;
+  }
+}
+
+.ph-10 {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+@each $class in $padding-top {
+  .pt-#{$class} {
+    padding: #{$class}px;
+  }
+}
+
+@each $class in $padding-bottom {
+  .pb-#{$class} {
+    padding: #{$class}px;
+  }
+}
+
+@media screen and (min-width: $mb){
+  @each $class in $padding {
+    .p-mb-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+
+  .ph-mb-10 {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  @each $class in $padding-top {
+    .pt-mb-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+
+  @each $class in $padding-bottom {
+    .pb-mb-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+}
+
+@media screen and (min-width: $lg){
+  @each $class in $padding {
+    .p-lg-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+
+  .ph-lg-10 {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  @each $class in $padding-top {
+    .pt-lg-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+
+  @each $class in $padding-bottom {
+    .pb-lg-#{$class} {
+      padding: #{$class}px;
+    }
+  }
+}

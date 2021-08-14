@@ -1,15 +1,19 @@
 <template>
-  <section class="section-advantages mt-lg-0" id="section-advantages">
+  <section class="section-advantages section-margin mt-lg-0 ph-10" id="section-advantages">
     <header class="mb-30 mb-mb-80 text-center">
-      <h3 class="section-caption mb-10">Путешествие мечты начинается с CARD PLUS</h3>
+      <h3 class="section-caption mb-10">Путешествие мечты начинается с&nbsp;CARD&nbsp;PLUS</h3>
       <p class="section-advantages__subcaption d-iblock clonia gray-color">
         Мы продумали каждую мелочь. Владельцы CARD PLUS получают особый пакет привилегий, необходимый для любого
         путешествия
       </p>
     </header>
-
     <main>
-      <ul class="d-flex row justify-center justify-mb-space-between">
+      <transition-group
+        name="list-from-right"
+        tag="ul"
+        class="d-flex row justify-center justify-mb-space-between"
+        v-scrollanimation="onScrollList"
+      >
         <li
           v-for="(item, index) in [
             {
@@ -33,6 +37,7 @@
               class: 'section-advantages__item_img_coins',
             },
           ]"
+          v-show="showList"
           class="section-advantages__item col-10 col-mb-5 col-lg-2 mb-20 mb-lg-0 text-center text-mb-left"
           :class="item.class"
           :key="item.class + index"
@@ -40,7 +45,7 @@
           <strong class="d-block mb-10 oronia">{{ item.caption }}</strong>
           <p class="menippe">{{ item.text }}</p>
         </li>
-      </ul>
+      </transition-group>
     </main>
   </section>
 </template>
@@ -51,8 +56,9 @@ import { Options, Vue } from 'vue-class-component';
   name: 'SectionAdvantages',
 })
 export default class SectionAdvantages extends Vue {
-  onScroll(el: { target: HTMLElement }): void {
-    console.log('SectionAdvantages', el.target);
+  showList = false;
+  onScrollList(): void {
+    this.showList = true;
   }
 }
 </script>
@@ -62,8 +68,8 @@ export default class SectionAdvantages extends Vue {
 
 .section-advantages {
   max-width: 1028px;
-  padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 10px 0;
-  margin: calc(-2 * var(--header-padding-vertical)) 0 0;
+  //padding: calc(2 * var(--header-padding-vertical) + var(--logo-height)) 10px 0;
+  //margin: calc(-2 * var(--header-padding-vertical)) 0 0;
   &__subcaption {
     max-width: 530px;
   }

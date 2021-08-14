@@ -1,6 +1,6 @@
 <template>
   <section class="section-premium-card w-100">
-    <div class="section-premium-card__container p-rel ph-10 m-auto">
+    <div class="section-premium-card__container d-flex d-lg-block flex-column align-center p-rel ph-10 m-auto">
       <header class="section-premium-card__heading d-iblock mb-50">
         <h2 class="d-block d-lg-inline mb-20 mb-lg-0 text-center text-lg-left promo-caption">Твоя премиум карта</h2>
         <span class="section-premium-card__desc d-block d-lg-iblock ml-lg-30 text-center text-lg-left bormea">
@@ -8,8 +8,12 @@
         </span>
       </header>
 
-      <main class="d-flex flex-column align-center align-lg-start">
-        <ul class="section-premium-card__list row justify-space-between mb-lg-70">
+      <main class="d-flex flex-column align-center align-lg-start" v-scrollanimation="onScrollMain">
+        <transition-group
+          name="list-from-left"
+          tag="ul"
+          class="section-premium-card__list row justify-space-between mb-lg-70"
+        >
           <li
             v-for="(item, index) in [
               { caption: '11%', text: 'Вернем за&nbsp;покупки милями' },
@@ -18,6 +22,7 @@
               { caption: '0р', text: 'Бесплатное годовое обслуживание' },
             ]"
             class="section-premium-card__benefit mb-35 col-5"
+            v-show="showList"
             :key="item.text + index"
           >
             <benefit>
@@ -28,8 +33,10 @@
               {{ item.text }}
             </benefit>
           </li>
-        </ul>
-        <a href="#section-travel-card" class="button">Заказать сейчас</a>
+        </transition-group>
+        <transition name="fade-in">
+          <a href="#section-travel-card" v-show="showButton" class="button">Заказать сейчас</a>
+        </transition>
       </main>
     </div>
   </section>
@@ -47,7 +54,14 @@ import ModalButton from '@/components/ModalButton/ModalButton.vue';
     ModalButton,
   },
 })
-export default class SectionPremiumCard extends Vue {}
+export default class SectionPremiumCard extends Vue {
+  showList = false;
+  showButton = false;
+  onScrollMain(): void {
+    this.showButton = true;
+    this.showList = true;
+  }
+}
 </script>
 
 <style lang="scss">
