@@ -3,7 +3,7 @@
     type="button"
     class="dropdown p-rel w-100 b-transparent rounded outline-none text-left c-pointer"
     :class="dropdownClasses"
-    @click="toggleList"
+    @click.stop="toggleList"
   >
     <span class="dropdown__label p-abs crephusa gray-color"><slot></slot></span>
     <span class="input-text white-color">
@@ -11,7 +11,7 @@
     </span>
 
     <transition name="dropdown-list">
-      <div v-show="isOpen" class="dropdown__inner p-abs w-100 rounded">
+      <div v-if="isOpen" class="dropdown__inner p-abs w-100 rounded" v-clickoutside="closeList">
         <transition-group class="dropdown__list overflow-x-hidden" name="dropdown-items" tag="ul">
           <li v-for="option in getOptions" :key="option.index">
             <button
@@ -43,6 +43,7 @@ export default class Dropdown extends Vue {
   private dropdown!: TDropdown;
   isOpen = false;
   @Emit() updatedDropdown(index: number): number {
+    this.closeList();
     return index;
   }
   get dropdownClasses(): { 'is-opened': boolean } {
@@ -57,6 +58,9 @@ export default class Dropdown extends Vue {
   }
   toggleList(): void {
     this.isOpen = !this.isOpen;
+  }
+  closeList(): void {
+    this.isOpen = false;
   }
 }
 </script>

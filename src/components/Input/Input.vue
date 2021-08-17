@@ -22,7 +22,6 @@
 import { Options, Vue } from 'vue-class-component';
 import { Prop, Emit, Watch } from 'vue-property-decorator';
 import { TInput } from '@/types/Input';
-import { isValid } from '@/utils/Input';
 
 @Options({
   name: 'Input',
@@ -91,7 +90,7 @@ export default class Input extends Vue {
     return `id-${this.input.type}-${this.input.name}`;
   }
   get inputClasses(): { input__valid: boolean; input__invalid: boolean } {
-    const inputIsValid = isValid(this.input);
+    const inputIsValid = this.input.pattern.test(this.value);
     return {
       input__valid: this.isActivated && inputIsValid,
       input__invalid: this.isActivated && !inputIsValid,
@@ -103,7 +102,7 @@ export default class Input extends Vue {
     };
   }
   get showAlert(): boolean {
-    return this.isActivated && !isValid(this.input);
+    return this.isActivated && !this.input.pattern.test(this.value);
   }
 }
 </script>
